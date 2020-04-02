@@ -28,7 +28,7 @@ pushd pokecrystal
 git fetch
 git checkout c87f8512a4d736a847dbc69e09c781a29eeaa638
 make clean
-make -j4 compare
+make -j4 compare 'RGBGFX=DYLD_INSERT_LIBRARIES=/usr/lib/libgmalloc.dylib rgbgfx'
 popd
 
 if [ ! -d pokered ]; then
