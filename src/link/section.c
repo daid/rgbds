@@ -412,6 +412,19 @@ void sect_LinkSection(struct Section const *sect)
 		patch_FindRefdSections(&sect->patches[i], queueSmartSection, (struct Symbol const * const *)sect->fileSymbols);
 }
 
+static void smartLinkConstrained(void* arg, void*ign)
+{
+	(void)ign;
+
+	struct Section *sect = arg;
+	/* if a section isn't smart linked yet, but is fully constrained
+	   by address and bank, we want to smart link it as well */
+	if (!sect->smartLinked && sect->isAddressFixed && sect->isBankFixed) {
+		sect->smartLinked = true;
+		sect_LinkSection(sect);
+	}
+}
+
 void sect_PerformSmartLink(void)
 {
 	// If smart linking wasn't requested, do nothing
@@ -438,6 +451,8 @@ void sect_PerformSmartLink(void)
 		}
 	}
 	free(smartLinkNames);
+
+	hash_ForEach(sections, smartLinkConstrained, NULL);
 
 	// Also add sections referenced by assertions
 	struct Assertion const *assertion = obj_GetFirstAssertion();
