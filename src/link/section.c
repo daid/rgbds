@@ -396,7 +396,13 @@ static void queueSmartSection(struct Section *sect)
 		smartLinkQueue = realloc(smartLinkQueue, sizeof(*smartLinkQueue) * queueCapacity);
 	}
 
-	sect->smartLinked = true;
+	if (!sect->smartLinked)
+	{
+		sect->smartLinked = true;
+
+		smartLinkQueue[queueSize] = sect;
+		queueSize++;
+	}
 }
 
 void sect_LinkSection(struct Section const *sect)
