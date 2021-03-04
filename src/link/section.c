@@ -420,7 +420,7 @@ void sect_PerformSmartLink(void)
 
 	// Assume that each section is going to link a new one...
 	queueCapacity = nbSmartLinkNames;
-	smartLinkQueue = malloc(queueSize * sizeof(*smartLinkQueue));
+	smartLinkQueue = malloc(queueCapacity * sizeof(*smartLinkQueue));
 	if (!smartLinkQueue)
 		error(NULL, 0,  "Smart linking allocation failed: %s", strerror(errno));
 
