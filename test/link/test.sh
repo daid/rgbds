@@ -1,4 +1,6 @@
 #!/bin/bash
+brew install valgrind
+
 export DYLD_INSERT_LIBRARIES=/usr/lib/libgmalloc.dylib
 export LC_ALL=C
 set -o pipefail
@@ -107,7 +109,8 @@ for i in smart/*.asm; do
 	rm $gbtemp
 	i="${i%.asm}.smart"
 	startTest
-	gdb --eval-command=r --eval-command=bt --eval-command=q $RGBLINK -vs "root" -o $gbtemp $otemp
+	#gdb --eval-command=r --eval-command=bt --eval-command=q $RGBLINK -vs "root" -o $gbtemp $otemp
+	valgrind $RGBLINK -vs "root" -o $gbtemp $otemp
 	tryCmp "$i.bin" $gbtemp
 	rc=$(($? || $rc))
 done
