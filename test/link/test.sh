@@ -1,5 +1,6 @@
 #!/bin/bash
-brew install valgrind
+brew tap LouisBrunner/valgrind
+brew install --HEAD LouisBrunner/valgrind/valgrind
 
 export DYLD_INSERT_LIBRARIES=/usr/lib/libgmalloc.dylib
 export LC_ALL=C
