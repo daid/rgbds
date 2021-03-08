@@ -101,13 +101,13 @@ for i in smart/*.asm; do
 	startTest
 	$RGBASM -o $otemp $i
 	rm $gbtemp
-	$RGBLINK -x -o $gbtemp $otemp
+	$RGBLINK -o $gbtemp $otemp
 	tryCmp "${i%.asm}.bin" $gbtemp
 	rc=$(($? || $rc))
 	rm $gbtemp
 	i="${i%.asm}.smart"
 	startTest
-	$RGBLINK -x -vs "root" -o $gbtemp $otemp
+	$RGBLINK -vs "root" -o $gbtemp $otemp
 	tryCmp "$i.bin" $gbtemp
 	rc=$(($? || $rc))
 done
