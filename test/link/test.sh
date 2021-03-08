@@ -1,5 +1,5 @@
 #!/bin/bash
-
+export DYLD_INSERT_LIBRARIES=/usr/lib/libgmalloc.dylib
 export LC_ALL=C
 set -o pipefail
 
